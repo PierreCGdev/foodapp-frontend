@@ -6,11 +6,11 @@ export const recipeColors = [
   "#BDA6C9",
   "#C5E1A5", 
   "#FFE0B2", 
-  "#B2EBF2", 
-  "#D7CCC8", 
+  "#B2EBF2",  
   "#F8BBD0", 
   "#E6EE9C", 
   "#D1C4E9",
   "#FFCCBC", 
   "#DCEDC8", 
+
 ];

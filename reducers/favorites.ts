@@ -4,7 +4,8 @@ type Favorite = {
   id: string | null;
 };
 
-type FavoritesState = {
+
+export  type FavoritesState = {
   value: Favorite[];
 };
 

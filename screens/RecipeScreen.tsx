@@ -14,10 +14,18 @@ import { getRecipeById } from "../constants/Urls";
 import { useIsFocused } from "@react-navigation/native";
 import { useRoute, RouteProp } from "@react-navigation/native";
 import { RootStackParamList, Recipe } from "../types";
+import { useDispatch, useSelector } from "react-redux";
+import { favorite, unfavorite, FavoritesState } from "../reducers/favorites";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 type RecipeRouteProp = RouteProp<RootStackParamList, "Recipe">;
 
 export default function RecipesScreen() {
+  const dispatch = useDispatch();
+  const favorites = useSelector(
+    (state: { favorites: FavoritesState }) => state.favorites.value
+  );
+
   const route = useRoute<RecipeRouteProp>();
   const { mealId, color = "white" } = route.params;
   const [data, setData] = useState<Recipe | null>(null);
@@ -28,6 +36,17 @@ export default function RecipesScreen() {
         setData(res.recipe);
       });
   }, [isFocused]);
+  const isFavorite = data ? favorites.some((fav) => fav.id === data.id) : false;
+
+  const handlePress = () => {
+    if (!data?.id) return;
+
+    if (isFavorite) {
+      dispatch(unfavorite(data.id));
+    } else {
+      dispatch(favorite({ id: data.id }));
+    }
+  };
 
   const ingredients = data?.ingredients.map((item, i) => {
     return (
@@ -79,7 +98,26 @@ export default function RecipesScreen() {
             />
           </View>
         </View>
+
         <View style={{ backgroundColor: color, width: "100%", flex: 2 }}>
+          <TouchableOpacity
+            style={{
+              position: "absolute",
+              top: -20,
+              right: 20,
+              borderRadius: 50,
+              backgroundColor: "#655074",
+              padding: 20,
+              zIndex: 10,
+            }}
+            onPress={handlePress}
+          >
+            <Ionicons
+              name={isFavorite ? "bookmark" : "bookmark-outline"}
+              size={20}
+              color="#ffffff"
+            />
+          </TouchableOpacity>
           <View
             style={{
               backgroundColor: "white",
@@ -116,7 +154,7 @@ export default function RecipesScreen() {
               {ingredients}
               <TouchableOpacity
                 style={{
-                  backgroundColor: "black",
+                  backgroundColor: "#655074",
                   paddingVertical: 15,
                   paddingHorizontal: 40,
                   borderRadius: 30,
