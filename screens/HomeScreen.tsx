@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen({ navigation }: any) {
   return (
     <TouchableOpacity
       style={styles.container}

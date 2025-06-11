@@ -1,6 +1,7 @@
 export type RootStackParamList = {
   Home: undefined;
-  Recipe: undefined; // ou { recipeId: number } si tu passes des données
+  Category: { categoryName: string } ;
+  Recipe: { mealId: string, color:string };
   DrawerNavigator: undefined;
 };
 

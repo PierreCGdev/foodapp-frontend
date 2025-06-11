@@ -1,40 +1,42 @@
 import { StyleSheet, Text, View, Platform, FlatList } from "react-native";
 import CategoryCard from "../components/CategoryCard";
-import { getCategories } from "../constants/Urls";
+import { getRecipesByCategoryName } from "../constants/Urls";
 import { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
+import { useRoute, RouteProp } from "@react-navigation/native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { RootStackParamList } from "../types";
 
-export default function RecipeScreen() {
-  type Category = {
-    idCategory: string;
-    strCategory: string;
-    strCategoryThumb: string;
-    strCategoryDescription: string;
-  };
+type CategoryRouteProp = RouteProp<RootStackParamList, "Category">;
+type Category = {
+  strMeal: string;
+  strMealThumb: string;
+  idMeal: string;
+};
+
+export default function RecipesCategoryScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const route = useRoute<CategoryRouteProp>();
+  const { categoryName } = route.params;
   const [data, setData] = useState<Category[]>([]);
   const isFocused = useIsFocused();
   useEffect(() => {
     isFocused &&
-      getCategories().then((res) => {
-        setData(res.categories);
+      getRecipesByCategoryName(categoryName).then((res) => {
+        setData(res.recipes);
       });
   }, [isFocused]);
 
-  const handleOnPress = (name: string) => {
-    navigation.navigate("Category", {
-      categoryName: name,
+  const handleOnPress = (id: string) => {
+    navigation.navigate("Recipe", {
+      mealId: id,
+      color: "#655074", // You can change this to any color you want
     });
   };
 
-  const renderCategories = ({ item }: { item: Category }) => {
+  const renderCategories = ({ item }: any) => {
     return (
-      <CategoryCard
-        item={item}
-        onPress={() => handleOnPress(item.strCategory)}
-      />
+      <CategoryCard item={item} onPress={() => handleOnPress(item.idMeal)} />
     );
   };
 
@@ -59,17 +61,17 @@ export default function RecipeScreen() {
               }),
             }}
           >
-            What do you want to eat today ?
+            Discover {categoryName} recipes
           </Text>
           <Text style={{ color: "#999191", fontSize: 17, fontWeight: 500 }}>
-            Our daily healthy meal plans
+            Browse the best meals in this category
           </Text>
         </View>
       </View>
       <FlatList
         data={data}
         renderItem={renderCategories}
-        keyExtractor={(item) => item.idCategory}
+        keyExtractor={(item) => item.idMeal}
         numColumns={2}
         style={{ flex: 1 }}
         contentContainerStyle={styles.categoryContainter}
@@ -81,10 +83,11 @@ export default function RecipeScreen() {
               color: "#655074",
             }}
           >
-            no categories found.
+            no recipes found.
           </Text>
         }
       />
+      {/* <View style={styles.recipeContainter}>{recipesList}</View> */}
     </View>
   );
 }
