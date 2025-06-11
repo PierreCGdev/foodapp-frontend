@@ -1,18 +1,13 @@
+import React from "react";
 import { StyleSheet, Text, View, Platform, FlatList } from "react-native";
 import CategoryCard from "../components/CategoryCard";
 import { getCategories } from "../constants/Urls";
 import { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
-import { RootStackParamList } from "../types";
+import { RootStackParamList, Category } from "../types";
 
 export default function RecipeScreen() {
-  type Category = {
-    idCategory: string;
-    strCategory: string;
-    strCategoryThumb: string;
-    strCategoryDescription: string;
-  };
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [data, setData] = useState<Category[]>([]);
   const isFocused = useIsFocused();

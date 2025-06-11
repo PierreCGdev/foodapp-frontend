@@ -1,3 +1,4 @@
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -5,32 +6,18 @@ import {
   Image,
   Platform,
   ScrollView,
+  TouchableOpacity,
+  Linking,
 } from "react-native";
 import { useEffect, useState } from "react";
 import { getRecipeById } from "../constants/Urls";
 import { useIsFocused } from "@react-navigation/native";
 import { useRoute, RouteProp } from "@react-navigation/native";
-import { RootStackParamList } from "../types";
+import { RootStackParamList, Recipe } from "../types";
 
 type RecipeRouteProp = RouteProp<RootStackParamList, "Recipe">;
 
 export default function RecipesScreen() {
-  type Ingredient = {
-    name: string;
-    amount: string;
-  };
-  type Recipe = {
-    id: string;
-    name: string;
-    category: string;
-    area: string;
-    instructions: string;
-    image: string;
-    tags: string[];
-    youtube: string;
-    ingredients: Ingredient[];
-  };
-
   const route = useRoute<RecipeRouteProp>();
   const { mealId, color = "white" } = route.params;
   const [data, setData] = useState<Recipe | null>(null);
@@ -41,6 +28,24 @@ export default function RecipesScreen() {
         setData(res.recipe);
       });
   }, [isFocused]);
+
+  const ingredients = data?.ingredients.map((item, i) => {
+    return (
+      <View
+        key={i}
+        style={{
+          flexDirection: "row",
+          marginVertical: 5,
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Text>{item.name}</Text>
+        <Text>{item.amount}</Text>
+      </View>
+    );
+  });
+
   if (data) {
     return (
       <View style={{ ...styles.container }}>
@@ -87,17 +92,69 @@ export default function RecipesScreen() {
               <Text
                 style={{
                   color: "black",
-                  fontSize: 24,
-                  fontWeight: 700,
+                  fontSize: 40,
+                  fontWeight: 500,
                   fontFamily: Platform.select({
                     ios: "Georgia",
                     android: "serif",
                   }),
+                  marginBottom: 20,
                 }}
               >
                 {data.name}
               </Text>
-              <Text style={{ color: "#999191", fontSize: 17, fontWeight: 500 }}>
+              <Text
+                style={{
+                  color: "black",
+                  fontSize: 17,
+                  fontWeight: 900,
+                  marginVertical: 20,
+                }}
+              >
+                Ingredients :
+              </Text>
+              {ingredients}
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "black",
+                  paddingVertical: 15,
+                  paddingHorizontal: 40,
+                  borderRadius: 30,
+                  alignSelf: "center",
+                  marginTop: 30,
+                }}
+                onPress={() => {
+                  Linking.openURL(data.youtube);
+                }}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    textAlign: "center",
+                    fontWeight: 700,
+                  }}
+                >
+                  Youtube Link
+                </Text>
+              </TouchableOpacity>
+              <Text
+                style={{
+                  color: "black",
+                  fontSize: 17,
+                  fontWeight: 900,
+                  marginTop: 20,
+                }}
+              >
+                Instructions :
+              </Text>
+              <Text
+                style={{
+                  color: "#999191",
+                  fontSize: 17,
+                  fontWeight: 500,
+                  marginTop: 20,
+                }}
+              >
                 {data.instructions}
               </Text>
             </ScrollView>

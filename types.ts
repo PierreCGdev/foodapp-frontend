@@ -1,11 +1,27 @@
 export type RootStackParamList = {
-  Home: undefined;
   Category: { categoryName: string } ;
   Recipe: { mealId: string, color:string };
-  DrawerNavigator: undefined;
 };
 
-export type DrawerParamList = {
-  Search: undefined;
-  "My recipes": undefined;
-};
+  type Ingredient = {
+    name: string;
+    amount: string;
+  };
+  export type Recipe = {
+    id: string;
+    name: string;
+    category: string;
+    area: string;
+    instructions: string;
+    image: string;
+    tags: string[];
+    youtube: string;
+    ingredients: Ingredient[];
+  };
+
+  export   type Category = {
+    idCategory: string;
+    strCategory: string;
+    strCategoryThumb: string;
+    strCategoryDescription: string;
+  };

@@ -1,3 +1,4 @@
+import React from "react";
 import { Text, View, Image, Dimensions, TouchableOpacity } from "react-native";
 import { getContrastingTextColor } from "../utils/InverseColorUtils";
 import truncate from "../utils/truncate";

@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function MyRecipesScreen() {
   return (
@@ -13,6 +14,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#A7C8F1"
+    backgroundColor: "#A7C8F1",
   },
 });

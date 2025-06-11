@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type Favorite = {
-  id: string;
+  id: string | null;
 };
 
 type FavoritesState = {

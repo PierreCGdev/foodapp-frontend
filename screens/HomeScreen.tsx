@@ -1,3 +1,4 @@
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -6,8 +7,13 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
 
-export default function HomeScreen({ navigation }: any) {
+type HomeScreenProps = {
+  navigation: NavigationProp<ParamListBase>;
+};
+
+export default function HomeScreen({ navigation }: HomeScreenProps) {
   return (
     <TouchableOpacity
       style={styles.container}

@@ -1,3 +1,4 @@
+import React from "react";
 import { StyleSheet, Text, View, Platform, FlatList } from "react-native";
 import CategoryCard from "../components/CategoryCard";
 import { getRecipesByCategoryName } from "../constants/Urls";

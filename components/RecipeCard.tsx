@@ -1,24 +1,37 @@
+// import React from "react";
 // import { Text, View, Image, Dimensions, TouchableOpacity } from "react-native";
 // import { getContrastingTextColor } from "../utils/InverseColorUtils";
 // import truncate from "../utils/truncate";
-// import { useNavigation, NavigationProp } from "@react-navigation/native";
-// import { RootStackParamList } from "../types";
+// import { recipeColors } from "../data/colors";
+// import { useMemo } from "react";
 
-// export default function RecipeCard({ item }: any) {
-//   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+// type CategoryCardProps = {
+//   item: any;
+//   onPress: () => void;
+// };
+
+// export default function RecipeCard({ item, onPress }: CategoryCardProps) {
 //   const windowWidth = Dimensions.get("window").width;
+//   const randomColor = useMemo(() => {
+//     const index = Math.floor(Math.random() * recipeColors.length);
+//     return recipeColors[index];
+//   }, []);
+//   const title = item.strCategory || item.strMeal;
+//   const description = item.strCategoryDescription;
+//   const image = item.strCategoryThumb || item.strMealThumb;
+
 //   return (
 //     <TouchableOpacity
 //       style={{
 //         padding: 10,
 //         width: windowWidth / 2 - 15,
-//         maxHeight: 250,
+//         maxHeight: 260,
 //       }}
-//       onPress={() => navigation.navigate("Recipe")}
+//       onPress={onPress}
 //     >
 //       <View
 //         style={{
-//           backgroundColor: item.color,
+//           backgroundColor: randomColor,
 //           paddingTop: 6,
 //           paddingRight: 12,
 //           paddingLeft: 14,
@@ -32,33 +45,39 @@
 //       >
 //         <Image
 //           style={{
-//             width: "95%",
-//             maxHeight: 130,
-//             objectFit: "contain",
+//             marginTop: 15,
+//             marginBottom: 8,
+//             width: 130,
+//             height: 130,
+
+//             resizeMode: "contain",
 //             alignSelf: "center",
+//             borderRadius: 30,
 //           }}
-//           source={item.image}
+//           source={{ uri: image }}
 //         />
 
 //         <Text
 //           style={{
 //             textAlign: "right",
 //             fontSize: 15,
-//             color: getContrastingTextColor(item.color, "#655074"),
+//             color: getContrastingTextColor(randomColor, "#655074"),
 //             fontWeight: "700",
 //           }}
 //         >
-//           {truncate(item.name, 36)}
+//           {truncate(title, 36)}
 //         </Text>
-//         <Text
-//           style={{
-//             textAlign: "right",
-//             fontSize: 10,
-//             color: getContrastingTextColor(item.color, "#635b5b"),
-//           }}
-//         >
-//           {item.desc}
-//         </Text>
+//         {description && (
+//           <Text
+//             style={{
+//               textAlign: "right",
+//               fontSize: 10,
+//               color: getContrastingTextColor(randomColor, "#635b5b"),
+//             }}
+//           >
+//             {truncate(description, 60)}
+//           </Text>
+//         )}
 //       </View>
 //     </TouchableOpacity>
 //   );
