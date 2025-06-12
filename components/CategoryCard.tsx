@@ -4,6 +4,7 @@ import { getContrastingTextColor } from "../utils/InverseColorUtils";
 import truncate from "../utils/truncate";
 import { recipeColors } from "../data/colors";
 import { useMemo } from "react";
+import nameToColor from "../utils/nameToColor";
 
 type CategoryCardProps = {
   item: any;
@@ -31,7 +32,7 @@ export default function RecipeCard({ item, onPress }: CategoryCardProps) {
     >
       <View
         style={{
-          backgroundColor: randomColor,
+          backgroundColor: nameToColor(title),
           paddingTop: 6,
           paddingRight: 12,
           paddingLeft: 14,
