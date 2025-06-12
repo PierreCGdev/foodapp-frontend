@@ -32,7 +32,7 @@ export default function RecipesCategoryScreen() {
   const handleOnPress = (id: string, name: string) => {
     navigation.navigate("Recipe", {
       mealId: id,
-      color: nameToColor(name), // You can change this to any color you want
+      color: nameToColor(name),
     });
   };
 

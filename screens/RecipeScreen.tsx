@@ -36,7 +36,7 @@ export default function RecipesScreen() {
         setData(res.recipe);
       });
   }, [isFocused]);
-  const isFavorite = data ? favorites.some((fav) => fav.id === data.id) : false;
+  const isFavorite = data ? favorites.some((fav) => fav === data.id) : false;
 
   const handlePress = () => {
     if (!data?.id) return;
@@ -44,7 +44,7 @@ export default function RecipesScreen() {
     if (isFavorite) {
       dispatch(unfavorite(data.id));
     } else {
-      dispatch(favorite({ id: data.id }));
+      dispatch(favorite(data.id));
     }
   };
 

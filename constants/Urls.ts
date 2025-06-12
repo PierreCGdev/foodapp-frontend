@@ -34,3 +34,18 @@ export const getRecipeById = async (id: string) => {
 
     return await response.json();
 }
+
+export const getFavoritesRecipes = async (id: string[]) => {
+
+    const response = await fetch(`${backend}/recipes/favoritesRecipes`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            favoritesId: id
+        }),
+    });
+
+    return await response.json();
+}

@@ -1,12 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type Favorite = {
-  id: string | null;
-};
-
 
 export  type FavoritesState = {
-  value: Favorite[];
+  value: string[];
 };
 
 const initialState: FavoritesState = {
@@ -17,11 +13,13 @@ export const favoritesSlice = createSlice({
   name: "favorites",
   initialState,
   reducers: {
-    favorite: (state, action) => {
-      state.value.push(action.payload);
+    favorite: (state, action: PayloadAction<string>) => {
+      if (!state.value.includes(action.payload)) {
+        state.value.push(action.payload);
+      }
     },
-    unfavorite: (state, action) => {
-      state.value = state.value.filter(e => e.id !== action.payload);
+    unfavorite: (state, action: PayloadAction<string>) => {
+      state.value = state.value.filter(id => id !== action.payload);
     },
   },
 });

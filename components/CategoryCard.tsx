@@ -1,9 +1,6 @@
 import React from "react";
 import { Text, View, Image, Dimensions, TouchableOpacity } from "react-native";
-import { getContrastingTextColor } from "../utils/InverseColorUtils";
 import truncate from "../utils/truncate";
-import { recipeColors } from "../data/colors";
-import { useMemo } from "react";
 import nameToColor from "../utils/nameToColor";
 
 type CategoryCardProps = {
@@ -13,13 +10,11 @@ type CategoryCardProps = {
 
 export default function RecipeCard({ item, onPress }: CategoryCardProps) {
   const windowWidth = Dimensions.get("window").width;
-  const randomColor = useMemo(() => {
-    const index = Math.floor(Math.random() * recipeColors.length);
-    return recipeColors[index];
-  }, []);
-  const title = item.strCategory || item.strMeal;
+
+  const title = item.strMeal || item.strCategory;
   const description = item.strCategoryDescription;
   const image = item.strCategoryThumb || item.strMealThumb;
+  const randomColor = nameToColor(title);
 
   return (
     <TouchableOpacity
@@ -32,7 +27,7 @@ export default function RecipeCard({ item, onPress }: CategoryCardProps) {
     >
       <View
         style={{
-          backgroundColor: nameToColor(title),
+          backgroundColor: randomColor,
           paddingTop: 6,
           paddingRight: 12,
           paddingLeft: 14,
@@ -62,7 +57,7 @@ export default function RecipeCard({ item, onPress }: CategoryCardProps) {
           style={{
             textAlign: "right",
             fontSize: 15,
-            color: getContrastingTextColor(randomColor, "#655074"),
+            color: "#655074",
             fontWeight: "700",
           }}
         >
@@ -73,7 +68,7 @@ export default function RecipeCard({ item, onPress }: CategoryCardProps) {
             style={{
               textAlign: "right",
               fontSize: 10,
-              color: getContrastingTextColor(randomColor, "#635b5b"),
+              color: "#655074",
             }}
           >
             {truncate(description, 60)}
