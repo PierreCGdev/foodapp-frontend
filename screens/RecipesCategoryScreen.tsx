@@ -49,6 +49,7 @@ export default function RecipesCategoryScreen() {
     <View style={styles.container}>
       <View
         style={{
+          paddingTop: 20,
           paddingHorizontal: 40,
           alignItems: "flex-start",
           justifyContent: "space-between",
@@ -80,6 +81,8 @@ export default function RecipesCategoryScreen() {
         numColumns={2}
         style={{ flex: 1 }}
         contentContainerStyle={styles.categoryContainter}
+        showsVerticalScrollIndicator={false}
+        fadingEdgeLength={100}
         ListEmptyComponent={
           <Text
             style={{
@@ -104,7 +107,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
     paddingHorizontal: 5,
-    paddingTop: 50,
+    paddingTop: 70,
     paddingBottom: 5,
   },
   categoryContainter: {

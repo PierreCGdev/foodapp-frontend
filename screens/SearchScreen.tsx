@@ -68,6 +68,8 @@ export default function RecipeScreen() {
         numColumns={2}
         style={{ flex: 1 }}
         contentContainerStyle={styles.categoryContainter}
+        showsVerticalScrollIndicator={false}
+        fadingEdgeLength={100}
         ListEmptyComponent={
           <Text
             style={{
@@ -91,7 +93,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
     paddingHorizontal: 5,
-    paddingTop: 50,
+    paddingTop: 70,
     paddingBottom: 5,
   },
   categoryContainter: {

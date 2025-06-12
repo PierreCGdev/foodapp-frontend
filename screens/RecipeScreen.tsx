@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { favorite, unfavorite, FavoritesState } from "../reducers/favorites";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import formatInstructions from "../utils/formatDescriptions";
+
 type RecipeRouteProp = RouteProp<RootStackParamList, "Recipe">;
 
 export default function RecipesScreen() {
@@ -126,7 +127,10 @@ export default function RecipesScreen() {
               padding: 40,
             }}
           >
-            <ScrollView>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              fadingEdgeLength={100}
+            >
               <Text
                 style={{
                   color: "black",
