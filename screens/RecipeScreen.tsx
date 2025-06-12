@@ -17,7 +17,7 @@ import { RootStackParamList, Recipe } from "../types";
 import { useDispatch, useSelector } from "react-redux";
 import { favorite, unfavorite, FavoritesState } from "../reducers/favorites";
 import Ionicons from "react-native-vector-icons/Ionicons";
-
+import formatInstructions from "../utils/formatDescriptions";
 type RecipeRouteProp = RouteProp<RootStackParamList, "Recipe">;
 
 export default function RecipesScreen() {
@@ -103,7 +103,7 @@ export default function RecipesScreen() {
           <TouchableOpacity
             style={{
               position: "absolute",
-              top: -20,
+              top: -30,
               right: 20,
               borderRadius: 50,
               backgroundColor: "#655074",
@@ -193,7 +193,7 @@ export default function RecipesScreen() {
                   marginTop: 20,
                 }}
               >
-                {data.instructions}
+                {formatInstructions(data.instructions)}
               </Text>
             </ScrollView>
           </View>

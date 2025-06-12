@@ -7,6 +7,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { useRoute, RouteProp } from "@react-navigation/native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { RootStackParamList } from "../types";
+import nameToColor from "../utils/nameToColor";
 
 type CategoryRouteProp = RouteProp<RootStackParamList, "Category">;
 type Category = {
@@ -28,16 +29,19 @@ export default function RecipesCategoryScreen() {
       });
   }, [isFocused]);
 
-  const handleOnPress = (id: string) => {
+  const handleOnPress = (id: string, name: string) => {
     navigation.navigate("Recipe", {
       mealId: id,
-      color: "#655074", // You can change this to any color you want
+      color: nameToColor(name), // You can change this to any color you want
     });
   };
 
   const renderCategories = ({ item }: any) => {
     return (
-      <CategoryCard item={item} onPress={() => handleOnPress(item.idMeal)} />
+      <CategoryCard
+        item={item}
+        onPress={() => handleOnPress(item.idMeal, item.strMeal)}
+      />
     );
   };
 
